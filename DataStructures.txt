@@ -1,0 +1,81 @@
+C++ DATA STRUCTURE LIBRARY
+
+
+Iterators in C++:
+
+Vector in C++ STL:
+    resource - https://www.geeksforgeeks.org/vector-in-cpp-stl/
+    dynamic array, automatically resizable.
+    data is inserted in end.
+    insertion:
+        at end : take differential time
+        beginning : take linear time
+    iterator:
+        begin(),
+        end(),
+        rbegin(),
+        rend()
+    defining vector:
+        vector<type_of_data>
+    
+    defining iterator of vector:
+        vector<type_of_data> :: iterator itr_name
+        vector<type_of_data> :: reverse_iterator itr_name
+        const_iterator
+        
+    methods:
+        push_back(),
+        size(),
+        max_size(),
+        capacity(),
+        resize(),     
+        empty(),
+        at(),
+        front(),
+        back(),
+        [pos],
+        
+    modifiers:
+        vec.assign(itr_first,itr_last)
+        vec.assign(num,value)
+        vec.assign(arr,arr+n)
+        push_back()
+        pop_back()
+        insert(const_iterator, value)
+        erase()
+        swap()
+        clear()
+        
+        
+    iterating vectors:
+        M1:
+            vector< vector<int> >::iterator row;
+            vector<int>::iterator col;
+            for (row = vvi.begin(); row != vvi.end(); row++) {
+                for (col = row->begin(); col != row->end(); col++) {
+                    // do stuff ...
+                }
+            }
+        M2:
+            vector< vector<int> > vec;
+            for(auto& row:vec){
+               for(auto& col:row){
+                  //do something using the element col
+               }
+            }
+
+        
+size_type
+reference_operator[]
+
+
+
+
+
+
+
+
+
+
+
+

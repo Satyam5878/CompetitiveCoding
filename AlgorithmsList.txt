@@ -1,0 +1,1 @@
+Juggling Algorithm: array rotation, timecomplexity-O(n)
