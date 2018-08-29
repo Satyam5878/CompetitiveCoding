@@ -26,9 +26,10 @@ inline int fastRead_int(){
         while(c<'0' || c>'9') c = getchar();
         while(c>='0' && c<='9'){
                 //ans = ans*10 + (c-'0');
-                ans  = (ans<<1+ans<<3)+(c-'0');
+                ans  = (ans<<1)+(ans<<3)+(c-'0');
                 c = getchar();
         }
+        return ans;
 }
 
 // for -ve no
@@ -38,6 +39,8 @@ inline int fastRead_int_(){
 inline void fastRead_string(char *str){
 
 }
+
+// Fast Output:
 
 // Program Variable
 
