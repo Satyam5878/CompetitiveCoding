@@ -18,6 +18,11 @@
 #define ri register int
 #define rlli register long long int 
 
+
+// FAST_IO
+#define FAST_IO ios_base::sync_with_stdio(false);\
+        cin.tie(0);\   
+
 // function for taking no as input
 // for positive no.s only
 inline int fastRead_int(){
