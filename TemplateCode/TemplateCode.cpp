@@ -5,9 +5,8 @@
 #include<ctime>
 
 // Finding min and max
-#define max(a,b) ((a)>(b))?(a):(b)
-#define min(a,b) ((a)<(b))?(a):(b)
-
+#define max(a,b) (((a)>(b))?(a):(b))
+#define min(a,b) (((a)<(b))?(a):(b))
 // program Run time
 #define start_time_routine  clock_t start_time = clock();
 #define end_time_routine clock_t end_time = clock(); \
@@ -21,7 +20,7 @@
 
 // FAST_IO
 #define FAST_IO ios_base::sync_with_stdio(false);\
-        cin.tie(0);\   
+        cin.tie(0);  
 
 // function for taking no as input
 // for positive no.s only
@@ -45,9 +44,73 @@ inline void fastRead_string(char *str){
 
 }
 
-// Fast Output:
+
+// FAST Output Code:
+
+#define MAX_BUFFER_SIZE 65536
+#define MAX_NUM_SIZE 20
+char buffer[MAX_BUFFER_SIZE];
+int currBufferIdx;
+char numStr[MAX_NUM_SIZE];
+inline void initBuffer() {
+	currBufferIdx = 0;
+}
+inline void flushBuffer() {
+	fwrite(buffer, sizeof(char), currBufferIdx, stdout);
+	currBufferIdx = 0;
+}
+
+inline void fastWriteToBuffer_str(const char *str) {
+	for (ri i = 0;str[i] != '\0';++i) {
+		if (currBufferIdx >= MAX_BUFFER_SIZE) {
+			flushBuffer();
+		}
+		else {
+			buffer[currBufferIdx++] = str[i];
+		}
+	}
+}
+inline void fastWriteToBuffer_int(int num) {
+	int idx = 0;
+	while (num) {
+		numStr[idx++] = (num % 10+'0');
+		num /= 10;
+	}
+	for (ri i = idx-1;i>=0;--i) {
+		if (currBufferIdx >= MAX_BUFFER_SIZE) {
+			flushBuffer();
+		}
+		else {
+			buffer[currBufferIdx++] = numStr[i];
+		}
+	}
+}
+
+
 
 // Program Variable
+
+//---------------------------_/\_Main Program Start Here_/\_---------------------
+                               
+//					 ___
+//				        (   )
+//				      @( 0 0 )@
+//				    //(   *   )\\
+//			           // (   -   ) \\
+//                                //  (   _   )  \\
+//                                ^  (   /-\   )  ^
+//                                  (___/ - \___)
+
+//---------------------------_/\_Main Program Start Here_/\_---------------------
+                               
+//				         ___
+//				        (   )
+//				      @( 0 0 )@
+//				    //(   *   )\\
+//			           // (   -   ) \\
+//                                //  (   _   ) \\
+//                                ^  (   /-\   )  ^
+//                                  (___/ - \___)
 
 
 
