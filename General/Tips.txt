@@ -1,0 +1,32 @@
+Date 19-10-2018:
+
+Tips for Coding:
+
+@1
+- Partition Method of QuickSort:
+	
+	* M-1: low-high method: GFG->Array->Rearrangement
+	* M-2: normal method: i=-1, j=0 and iterate linearly for swapping.
+
+@2 
+- Memory Pool Concept:
+	* Use global memory to initialize the memory pool and
+	  then use your malloc function to get memory from this pool.
+
+@3
+- Re-initializing the visited array in graph:
+	* instead of re-initializing the visited array for each test case
+	  use test case number to check if it is equal to test case number.
+
+@4 
+- Sliding Window technique:
+	* first process initial window.
+	* than start processing the rest of the window by sliding it.
+
+@5
+- Array implementation of doubly linked list:
+	* use three array.
+	* one to store elements, two to store left and right pointer.
+	
+	
+	
