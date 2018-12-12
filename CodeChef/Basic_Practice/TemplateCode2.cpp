@@ -17,6 +17,7 @@
 // Register defined loop variable
 #define ri register int
 #define rlli register long long int 
+#define lli long long int
 
 // FAST_IO Stream and stdio sync
 #define FAST_IO ios_base::sync_with_stdio(false);\
@@ -24,20 +25,25 @@
 
 // function for taking no as input
 // for positive no.s only
-inline int fastRead_int() {
-	int ans = 0;
+inline lli  fastRead_int() {
+	lli  ans = 0;
 	char c = getchar();
+	int neg = 1;
+	if (c == '-') {
+		neg = -1;
+		c = getchar();
+	}
 	while (c<'0' || c>'9') c = getchar();
 	while (c >= '0' && c <= '9') {
 		//ans = ans*10 + (c-'0');
 		ans = (ans << 1) + (ans << 3) + (c - '0');
 		c = getchar();
 	}
-	return ans;
+	return ans*neg;
 }
 
 // FAST Output Code:
-#define MAX_BUFFER_SIZE 65536
+#define MAX_BUFFER_SIZE 8
 #define MAX_NUM_SIZE 20
 char buffer[MAX_BUFFER_SIZE];
 int currBufferIdx;
@@ -50,67 +56,70 @@ inline void flushBuffer() {
 	currBufferIdx = 0;
 }
 inline void fastWriteToBuffer_str(const char *str) {
+	// start writing string to buffer
 	for (ri i = 0;str[i] != '\0';++i) {
-		if (currBufferIdx >= MAX_BUFFER_SIZE) {
+		// if buffer is full, i.e. we are at the last index
+		// then write '\0' to the buffer and flush it
+		// and decrease the i to again write the charactrer at ith location
+		if (currBufferIdx >= (MAX_BUFFER_SIZE - 1)) {
+			buffer[currBufferIdx] = '\0';
 			flushBuffer();
+			--i;
 		}
 		else {
 			buffer[currBufferIdx++] = str[i];
 		}
 	}
+	// write the '\0' at the end of string 
+	// so if we call flushBuffer, it does not give any error.
+	// here we are no increasing the currBufferIdx, 
+	// next time we will start writing from this location only.
+	buffer[currBufferIdx] = '\0';
+
 }
 inline void fastWriteToBuffer_int(int num) {
 	int idx = 0;
+	bool isNeg = false;
+	// if num is zero:
 	if (num == 0) {
 		buffer[currBufferIdx++] = '0';
 		return;
+	}
+	// if num is negative:	
+	if (num<0) {
+		num = -num;
+		isNeg = true;
 	}
 	while (num) {
 		numStr[idx++] = (num % 10 + '0');
 		num /= 10;
 	}
+	// if neg, add the -ve sign
+	if (isNeg) {
+		numStr[idx++] = '-';
+	}
 	for (ri i = idx - 1;i >= 0;--i) {
-		if (currBufferIdx >= MAX_BUFFER_SIZE) {
+		if (currBufferIdx >= (MAX_BUFFER_SIZE - 1)) {
+			buffer[currBufferIdx] = '\0';
 			flushBuffer();
+			++i;
 		}
 		else {
 			buffer[currBufferIdx++] = numStr[i];
 		}
 	}
+	buffer[currBufferIdx] = '\0';
 }
 
 //-----------------------_/\_Main Program Start Here_/\_------------------
-
-#include<iostream>
-
 using namespace std;
-#define MAX_SIZE 100+5
-int d[MAX_SIZE];
-
 int main() {
-	int T,n,di;
-	//cin >> T; // reading no. of test case
-	T = fastRead_int();
-	for (int tc = 1;tc <= T;++tc) {
-		//cin >> n; // no. of friends
-		n = fastRead_int();
-		for (int i = 0;i < n;++i) {
-			//cin >> di; // ith friend's party day
-			di = fastRead_int();
-			d[di] = tc; // setting to tc no., indicate if any
-						// person want party that day. 
-		}
-		
-		int count = 0;
-		for (int i = 1;i <= 100;++i) {
-			if (d[i] == tc) {
-				count++;
-			}
-		}
-		//cout << count << '\n';
-		fastWriteToBuffer_int(count);
-		fastWriteToBuffer_str("\n");
-	}
+	//start_time_routine;
+	int T;
+
+	//fastWriteToBuffer_str("12341234");
+	fastWriteToBuffer_int(-10);
 	flushBuffer();
+	//	end_time_routine;
 	return 0;
 }

@@ -24,20 +24,25 @@
 
 // function for taking no as input
 // for positive no.s only
-inline int fastRead_int() {
-	int ans = 0;
+inline long long int fastRead_int() {
+	long long int ans = 0;
 	char c = getchar();
+	int neg = 1;
+	if (c == '-') {
+		neg = -1;
+		c = getchar();
+	}
 	while (c<'0' || c>'9') c = getchar();
 	while (c >= '0' && c <= '9') {
 		//ans = ans*10 + (c-'0');
 		ans = (ans << 1) + (ans << 3) + (c - '0');
 		c = getchar();
 	}
-	return ans;
+	return ans*neg;
 }
 
 // FAST Output Code:
-#define MAX_BUFFER_SIZE 65536
+#define MAX_BUFFER_SIZE 6000000//65536
 #define MAX_NUM_SIZE 20
 char buffer[MAX_BUFFER_SIZE];
 int currBufferIdx;
@@ -51,7 +56,7 @@ inline void flushBuffer() {
 }
 inline void fastWriteToBuffer_str(const char *str) {
 	for (ri i = 0;str[i] != '\0';++i) {
-		if (currBufferIdx >= MAX_BUFFER_SIZE) {
+		if (currBufferIdx > MAX_BUFFER_SIZE) {
 			flushBuffer();
 		}
 		else {
@@ -65,12 +70,18 @@ inline void fastWriteToBuffer_int(int num) {
 		buffer[currBufferIdx++] = '0';
 		return;
 	}
+	if (num<0) {
+		buffer[currBufferIdx++] = '-';
+		num = -num;
+	}
+
+
 	while (num) {
 		numStr[idx++] = (num % 10 + '0');
 		num /= 10;
 	}
 	for (ri i = idx - 1;i >= 0;--i) {
-		if (currBufferIdx >= MAX_BUFFER_SIZE) {
+		if (currBufferIdx > MAX_BUFFER_SIZE) {
 			flushBuffer();
 		}
 		else {
@@ -84,33 +95,44 @@ inline void fastWriteToBuffer_int(int num) {
 #include<iostream>
 
 using namespace std;
-#define MAX_SIZE 100+5
-int d[MAX_SIZE];
+#define lli long long int
+#define MAX_SIZE 100000+7
+lli A[MAX_SIZE];
+
 
 int main() {
-	int T,n,di;
-	//cin >> T; // reading no. of test case
+	lli T, N;
+	// Test case:
+	//cin >> T;
 	T = fastRead_int();
-	for (int tc = 1;tc <= T;++tc) {
-		//cin >> n; // no. of friends
-		n = fastRead_int();
-		for (int i = 0;i < n;++i) {
-			//cin >> di; // ith friend's party day
-			di = fastRead_int();
-			d[di] = tc; // setting to tc no., indicate if any
-						// person want party that day. 
+	for (int tc = 0;tc < T;++tc) {
+		// No. of elements:
+		//cin >> N;
+		N = fastRead_int();
+		// reading elements:
+		for (int i = 0;i < N;++i) {
+			//cin >> A[i];
+			A[i] = fastRead_int();
 		}
-		
-		int count = 0;
-		for (int i = 1;i <= 100;++i) {
-			if (d[i] == tc) {
-				count++;
+
+		// Algo:
+		int j;
+		for (int i = 0;i < N;) {
+			j = i + 1;
+			while (j < N && ((A[j]>0 && A[j-1]<0)|| (A[j]<0 && A[j-1]>0))) {
+				j++;
+			}
+			while (i < j) {
+				//cout << (j - i) << " ";
+				fastWriteToBuffer_int(j-i);
+				fastWriteToBuffer_str(" ");
+				i++;
 			}
 		}
-		//cout << count << '\n';
-		fastWriteToBuffer_int(count);
+		//cout << "\n";
 		fastWriteToBuffer_str("\n");
 	}
 	flushBuffer();
+
 	return 0;
 }
